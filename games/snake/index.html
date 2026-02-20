@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Snake Game - Jayesh Game Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="game-page">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">🎮 Jayesh Game Hub</div>
+  <a href="../../index.html" class="back-btn">⬅ Back</a>
+</nav>
+
+<!-- GAME CARD -->
+<div class="game-container fade-in">
+
+  <h2 class="game-title">🐍 Snake Game</h2>
+
+  <div class="top-bar">
+    <div>Player: <span id="playerName">–</span></div>
+    <div id="scoreBoard">Score: 0</div>
+  </div>
+	
+	<div class="difficulty-switch">
+	  <button onclick="setDifficulty('easy')" class="active">Easy</button>
+	  <button onclick="setDifficulty('medium')">Medium</button>
+	  <button onclick="setDifficulty('hard')">Hard</button>
+	</div>
+
+	<!-- High Score -->
+	<div class="high-score">
+	  High Score: <span id="highScore">0</span>
+	</div>
+
+	<!-- Eat Sound -->
+	<audio id="eatSound" src="eat.wav"></audio>
+	
+  <div class="game-wrapper">
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+    <div id="gameOver" class="overlay">
+      <div class="overlay-content">
+        <h2 id="gameOverMsg">Game Over</h2>
+        <p>Your Score: <span id="finalScore">0</span></p>
+        <button class="btn" onclick="restartGame()">Restart</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

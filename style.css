@@ -1,0 +1,189 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at 50% -20%, #1f1f1f, #0a0a0a 70%);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Background glow effect */
+body::before {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,0,90,0.25), transparent 70%);
+  top: -200px;
+  left: -200px;
+  filter: blur(100px);
+  z-index: -1;
+}
+
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;   /* reduced top space */
+}
+
+.hero h1 {
+  font-size: 52px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #fff, #ff4d88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  opacity: 0.7;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* Divider */
+.divider {
+  width: 100px;
+  height: 4px;
+  margin: 25px auto;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #ff005a, transparent);
+}
+
+/* Grid */
+.games-grid {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  padding: 60px 20px 120px;
+  flex-wrap: wrap;
+}
+
+/* Glass Card */
+.card {
+  width: 300px;
+  padding: 25px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  transition: 0.4s ease;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+.card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 25px 60px rgba(255, 0, 90, 0.4);
+}
+
+/* Image */
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 15px;
+  background: rgba(0,0,0,0.4);
+  padding: 15px;
+}
+
+/* Title */
+.card h3 {
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+/* Neon Button */
+.card a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  background: linear-gradient(45deg, #ff005a, #ff3b7d);
+  color: white;
+  transition: 0.3s ease;
+  box-shadow: 0 0 15px #ff005a;
+}
+
+.card a:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #ff005a, 0 0 50px #ff005a;
+}
+
+/* ===== HEADER ===== */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #ff3b7d;
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+  background: #0a0a0a;
+  padding: 60px 40px 20px;
+  margin-top: 60px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer h3 {
+  margin-bottom: 10px;
+}
+
+.footer-links,
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #aaa;
+  transition: 0.3s;
+}
+
+.footer a:hover {
+  color: #ff3b7d;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 40px;
+  opacity: 0.5;
+}

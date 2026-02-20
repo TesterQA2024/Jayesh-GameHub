@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flappy Bird - Jayesh Game Hub</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="game-page">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">🎮 Jayesh Game Hub</div>
+  <a href="../../index.html" class="back-btn">⬅ Back</a>
+</nav>
+
+<div class="game-container fade-in">
+
+  <h2 class="game-title">🐤 Flappy Bird</h2>
+
+  <!-- LEVEL SELECT -->
+  <div class="level-select">
+    <button class="level-btn active" data-level="easy">Easy</button>
+    <button class="level-btn" data-level="medium">Medium</button>
+    <button class="level-btn" data-level="hard">Hard</button>
+  </div>
+
+  <div class="top-bar">
+    <div>Score: <span id="score">0</span></div>
+    <div>Level: <span id="level">Easy</span></div>
+  </div>
+
+  <div class="game-wrapper">
+    <canvas id="gameCanvas" width="400" height="550"></canvas>
+
+    <div id="gameOverScreen" class="overlay hidden">
+      <div class="overlay-content">
+        <h2>Game Over</h2>
+        <p>Your Score: <span id="finalScore">0</span></p>
+        <button id="restartBtn" class="btn">Restart</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

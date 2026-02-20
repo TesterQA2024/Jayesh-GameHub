@@ -1,0 +1,122 @@
+body.game-page {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: white;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.back-btn {
+  text-decoration: none;
+  padding: 8px 16px;
+  background: #ff3b7d;
+  border-radius: 8px;
+  color: white;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  opacity: 0.8;
+}
+
+/* GAME CARD */
+.game-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
+
+.game-title {
+  margin-bottom: 15px;
+}
+
+/* LEVEL BUTTONS */
+.level-select {
+  margin-bottom: 15px;
+}
+
+.level-btn {
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  transition: 0.3s;
+}
+
+.level-btn.active {
+  background: #ff3b7d;
+  box-shadow: 0 0 15px #ff3b7d;
+}
+
+.level-btn:hover {
+  transform: scale(1.05);
+}
+
+/* SCORE BAR */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+/* CANVAS */
+#gameCanvas {
+  background: linear-gradient(to top, #1cb5e0, #000851);
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00f0ff;
+}
+
+/* OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.overlay-content {
+  background: #111;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: #ff3b7d;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
