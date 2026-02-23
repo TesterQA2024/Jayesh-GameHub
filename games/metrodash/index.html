@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Metro Dash 3D – Cyberpunk Runner</title>
+  <meta name="description" content="Metro Dash 3D – A fast-paced cyberpunk endless runner. Dodge trains, leap barriers, collect coins." />
+
+  <!-- Google Fonts: Orbitron (game UI) + Rajdhani (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- THREE.JS CANVAS (rendered behind all UI) -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- ═══════════════════════════════════════
+       HUD – In-game overlay (score, coins, pause)
+  ═══════════════════════════════════════ -->
+  <div id="hud" class="hud hidden">
+
+    <!-- Top-left: score -->
+    <div class="hud-score">
+      <div class="hud-label">SCORE</div>
+      <div class="hud-val" id="hudScore">0</div>
+    </div>
+
+    <!-- Top-center: pause button -->
+    <div class="hud-center-top">
+      <button id="pauseBtn" class="hud-pause-btn" aria-label="Pause">
+        <span id="pauseIcon">⏸</span>
+      </button>
+    </div>
+
+    <!-- Top-right: coins -->
+    <div class="hud-coins">
+      <div class="hud-label">COINS</div>
+      <div class="hud-val">
+        <span class="coin-sym">◈</span>
+        <span id="hudCoins">0</span>
+      </div>
+    </div>
+
+    <!-- Bottom-left: best score -->
+    <div class="hud-best">
+      <span class="hud-label">BEST&nbsp;</span>
+      <span id="hudBest">0</span>
+    </div>
+
+    <!-- Bottom-center: speed indicator -->
+    <div class="hud-speed-wrap">
+      <div class="hud-speed-label">SPEED</div>
+      <div class="hud-speed-bar">
+        <div class="hud-speed-fill" id="speedFill"></div>
+      </div>
+    </div>
+
+    <!-- Combo / multiplier pop -->
+    <div id="comboNotif" class="combo-notif hidden"></div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       MAIN MENU
+  ═══════════════════════════════════════ -->
+  <div id="menuScreen" class="screen">
+
+    <!-- Scanline overlay -->
+    <div class="scan-overlay"></div>
+
+    <div class="menu-inner">
+
+      <!-- Logo -->
+      <div class="logo-block">
+        <div class="logo-flare"></div>
+        <div class="logo-rail">
+          <span class="logo-m">METRO</span>
+          <span class="logo-d">DASH</span>
+          <span class="logo-3">3D</span>
+        </div>
+        <p class="logo-sub">◈ CYBERPUNK ENDLESS RUNNER ◈</p>
+      </div>
+
+      <!-- High score -->
+      <div class="menu-hs-box">
+        <div class="menu-hs-label">HIGH SCORE</div>
+        <div class="menu-hs-val" id="menuHS">0</div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="menu-btns">
+        <button id="playBtn" class="btn btn-play">
+          <span class="btn-arrow">▶</span> PLAY
+        </button>
+        <button id="howToBtn" class="btn btn-alt">HOW TO PLAY</button>
+      </div>
+
+      <!-- Controls mini-hint -->
+      <div class="menu-controls">
+        <div class="ctrl-item"><kbd>← →</kbd><span>Change Lane</span></div>
+        <div class="ctrl-item"><kbd>↑</kbd><span>Jump</span></div>
+        <div class="ctrl-item"><kbd>↓</kbd><span>Slide</span></div>
+        <div class="ctrl-item"><span class="touch-sym">👆</span><span>Swipe on mobile</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       HOW TO PLAY SCREEN
+  ═══════════════════════════════════════ -->
+  <div id="howToScreen" class="screen hidden">
+    <div class="scan-overlay"></div>
+    <div class="howto-inner">
+      <h2 class="screen-title">HOW TO PLAY</h2>
+
+      <div class="howto-grid">
+        <div class="howto-card">
+          <div class="howto-icon barrier-icon">▭</div>
+          <h3>Jump</h3>
+          <p>Low barriers block your path. Press <kbd>↑</kbd> or swipe up to leap over them.</p>
+        </div>
+        <div class="howto-card">
+          <div class="howto-icon train-icon">🚇</div>
+          <h3>Dodge</h3>
+          <p>Metro trains block a lane. Shift left or right with <kbd>← →</kbd> to avoid them.</p>
+        </div>
+        <div class="howto-card">
+          <div class="howto-icon beam-icon">═══</div>
+          <h3>Slide</h3>
+          <p>Overhead beams span the track. Press <kbd>↓</kbd> or swipe down to slide under.</p>
+        </div>
+        <div class="howto-card">
+          <div class="howto-icon coin-icon">◈</div>
+          <h3>Collect</h3>
+          <p>Grab glowing coins for bonus score. Watch for coin trails through obstacles!</p>
+        </div>
+      </div>
+
+      <p class="howto-tip">⚡ Speed increases the further you run. Survive as long as possible!</p>
+
+      <button id="howToBackBtn" class="btn btn-play">BACK</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PAUSE SCREEN
+  ═══════════════════════════════════════ -->
+  <div id="pauseScreen" class="screen hidden">
+    <div class="scan-overlay"></div>
+    <div class="pause-inner">
+      <div class="pause-line"></div>
+      <h2 class="screen-title">PAUSED</h2>
+      <div class="pause-score-row">
+        <span>SCORE</span>
+        <span id="pauseScore">0</span>
+      </div>
+      <div class="pause-btns">
+        <button id="resumeBtn" class="btn btn-play">▶ RESUME</button>
+        <button id="pauseMenuBtn" class="btn btn-alt">MAIN MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       GAME OVER SCREEN
+  ═══════════════════════════════════════ -->
+  <div id="gameoverScreen" class="screen hidden">
+    <div class="scan-overlay"></div>
+    <div class="gameover-inner">
+
+      <div class="crash-ring">
+        <div class="crash-icon">💀</div>
+      </div>
+
+      <h2 class="screen-title go-title">GAME OVER</h2>
+
+      <div class="results-card">
+        <div class="result-row">
+          <span class="r-label">DISTANCE</span>
+          <span class="r-val" id="goScore">0</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">COINS</span>
+          <span class="r-val gold-val"><span class="coin-sym">◈</span> <span id="goCoins">0</span></span>
+        </div>
+        <div class="result-divider"></div>
+        <div class="result-row hs-row">
+          <span class="r-label">BEST SCORE</span>
+          <span class="r-val cyan-val" id="goHS">0</span>
+        </div>
+      </div>
+
+      <!-- New best badge (shown conditionally) -->
+      <div id="newBestBadge" class="new-best hidden">🏆 NEW RECORD!</div>
+
+      <div class="go-btns">
+        <button id="restartBtn" class="btn btn-play">↺ PLAY AGAIN</button>
+        <button id="goMenuBtn" class="btn btn-alt">MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       COUNTDOWN (3-2-1-GO)
+  ═══════════════════════════════════════ -->
+  <div id="countdown" class="countdown hidden">
+    <span id="countNum">3</span>
+  </div>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Game logic -->
+  <script src="main.js"></script>
+
+</body>
+</html>
