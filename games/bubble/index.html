@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Cosmic Bubble Blast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="game-page">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">🎮 Jayesh Game Hub</div>
+  <a href="../../index.html" class="back-btn">⬅ Back</a>
+</nav>
+<div class="game-container fade-in"></div>
+  <!-- Starfield canvas (CSS-animated background) -->
+  <canvas id="starCanvas"></canvas>
+
+  <!-- Game container -->
+  <div id="gameContainer">
+    <!-- Three.js canvas -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- HUD Overlay -->
+    <div id="hud">
+      <div class="hud-left">
+        <div class="hud-item">
+          <span class="hud-label">SCORE</span>
+          <span class="hud-value" id="score">0</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">BEST</span>
+          <span class="hud-value" id="highScore">0</span>
+        </div>
+      </div>
+      <div class="hud-center">
+        <div id="levelBadge">
+          <span class="level-label">LEVEL</span>
+          <span class="level-num" id="level">1</span>
+        </div>
+      </div>
+      <div class="hud-right">
+        <div class="hud-item">
+          <span class="hud-label">COMBO</span>
+          <span class="hud-value combo-val" id="combo"></span>
+        </div>
+        <button id="restartBtn" class="icon-btn" title="Restart">⟳</button>
+      </div>
+    </div>
+
+    <!-- Next bubble indicator -->
+    <div id="nextBubbleUI">
+      <span class="next-label">NEXT</span>
+      <div id="nextBubbleColor"></div>
+    </div>
+
+    <!-- Combo flash text -->
+    <div id="comboText"></div>
+
+    <!-- Shooter base graphic -->
+    <div id="shooterBase">
+      <div class="shooter-ring outer"></div>
+      <div class="shooter-ring inner"></div>
+      <div class="shooter-dot"></div>
+    </div>
+
+    <!-- Danger line -->
+    <div id="dangerLine">
+      <span class="danger-label">DANGER ZONE</span>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="modal-screen" style="display:none;">
+      <div class="modal-card">
+        <div class="modal-glow"></div>
+        <h2 class="modal-title">GAME<br><span class="accent">OVER</span></h2>
+        <div class="modal-stat">
+          <span>FINAL SCORE</span>
+          <span class="modal-score" id="finalScore">0</span>
+        </div>
+        <div class="modal-stat">
+          <span>HIGH SCORE</span>
+          <span class="modal-score" id="finalHighScore">0</span>
+        </div>
+        <button class="modal-btn" id="gameOverRestartBtn">PLAY AGAIN</button>
+      </div>
+    </div>
+
+    <!-- Win Screen -->
+    <div id="winScreen" class="modal-screen" style="display:none;">
+      <div class="modal-card win-card">
+        <div class="modal-glow win-glow"></div>
+        <h2 class="modal-title">LEVEL<br><span class="accent gold">CLEAR!</span></h2>
+        <div class="modal-stat">
+          <span>SCORE</span>
+          <span class="modal-score" id="winScore">0</span>
+        </div>
+        <button class="modal-btn gold-btn" id="nextLevelBtn">NEXT LEVEL →</button>
+        <button class="modal-btn ghost-btn" id="winRestartBtn">RESTART</button>
+      </div>
+    </div>
+
+    <!-- Start / Splash Screen -->
+    <div id="splashScreen" class="modal-screen">
+      <div class="modal-card splash-card">
+        <div class="modal-glow splash-glow"></div>
+        <div class="splash-title">
+          <div class="bubble-logo">
+            <div class="logo-bubble b1"></div>
+            <div class="logo-bubble b2"></div>
+            <div class="logo-bubble b3"></div>
+          </div>
+          <h1 class="game-title">COSMIC<br><span class="accent">BUBBLE</span><br>BLAST</h1>
+        </div>
+        <p class="splash-sub">Match 3+ bubbles to pop them</p>
+        <div class="controls-hint">
+          <div class="hint-item">🖱️ Move → Aim &nbsp; Click → Shoot</div>
+          <div class="hint-item">📱 Drag → Aim &nbsp; Release → Shoot</div>
+        </div>
+        <button class="modal-btn gold-btn" id="startBtn">LAUNCH</button>
+      </div>
+    </div>
+
+  </div><!-- /gameContainer -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

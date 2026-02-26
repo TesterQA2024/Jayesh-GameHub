@@ -11,13 +11,16 @@ body.game-page {
   justify-content: space-between;
   align-items: center;
   padding: 20px 60px;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
 }
 
 .logo {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
 }
 
 .back-btn {
@@ -26,11 +29,45 @@ body.game-page {
   background: #ff3b7d;
   border-radius: 8px;
   color: white;
+  font-weight: 600;
   transition: 0.3s;
+  font-family: 'Poppins', sans-serif;
 }
 
 .back-btn:hover {
   opacity: 0.8;
+  transform: scale(1.05);
+}
+
+/* Mobile Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 30px;
+  }
+  
+  .logo {
+    font-size: 18px;
+  }
+  
+  .back-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+  
+  .logo {
+    font-size: 16px;
+  }
+  
+  .back-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 }
 
 /* GAME CARD */
@@ -47,6 +84,31 @@ body.game-page {
 
 .game-title {
   margin-bottom: 15px;
+}
+
+/* Mobile Responsive Game Container */
+@media (max-width: 768px) {
+  .game-container {
+    margin: 30px 20px;
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-container {
+    margin: 20px 15px;
+    padding: 20px 15px;
+  }
+  
+  .game-title {
+    font-size: 20px;
+  }
+  
+  .level-btn {
+    padding: 6px 12px;
+    margin: 3px;
+    font-size: 14px;
+  }
 }
 
 /* LEVEL BUTTONS */

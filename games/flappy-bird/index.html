@@ -6,6 +6,99 @@
 <title>Flappy Bird - Jayesh Game Hub</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Additional styles for enhancements */
+  html, body {
+    overflow: hidden;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+  }
+  
+  .power-ups-display {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .power-up-indicator {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+  }
+  
+  .power-up-indicator.active {
+    opacity: 1;
+    animation: pulse 1s infinite;
+  }
+  
+  .power-up-indicator.shield {
+    background: linear-gradient(45deg, #00ffff, #0088cc);
+  }
+  
+  .power-up-indicator.magnet {
+    background: linear-gradient(45deg, #ff00ff, #8800cc);
+  }
+  
+  .power-up-indicator.slowMotion {
+    background: linear-gradient(45deg, #ffff00, #cccc00);
+  }
+  
+  .skin-selector {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    justify-content: center;
+  }
+  
+  .skin-btn {
+    padding: 8px 15px;
+    border: 2px solid #ff6b6b;
+    background: rgba(255,107,107,0.1);
+    color: #ff6b6b;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .skin-btn:hover {
+    background: rgba(255,107,107,0.3);
+    transform: translateY(-2px);
+  }
+  
+  .skin-btn.active {
+    background: #ff6b6b;
+    color: white;
+    box-shadow: 0 0 15px rgba(255,107,107,0.5);
+  }
+  
+  .high-score-display {
+    text-align: center;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #ffd700;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+    20% { opacity: 1; transform: translateX(-50%) scale(1); }
+    80% { opacity: 1; transform: translateX(-50%) scale(1); }
+    100% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+  }
+</style>
 </head>
 
 <body class="game-page">
@@ -30,6 +123,26 @@
   <div class="top-bar">
     <div>Score: <span id="score">0</span></div>
     <div>Level: <span id="level">Easy</span></div>
+  </div>
+
+  <!-- High Score Display -->
+  <div class="high-score-display">
+    High Score: <span id="highScoreDisplay">0</span>
+  </div>
+
+  <!-- Bird Skin Selector -->
+  <div class="skin-selector">
+    <button class="skin-btn active" data-skin="default" onclick="changeBirdSkin('default')">🐤 Default</button>
+    <button class="skin-btn" data-skin="fire" onclick="changeBirdSkin('fire')">🔥 Fire</button>
+    <button class="skin-btn" data-skin="ice" onclick="changeBirdSkin('ice')">❄️ Ice</button>
+    <button class="skin-btn" data-skin="rainbow" onclick="changeBirdSkin('rainbow')">🌈 Rainbow</button>
+  </div>
+
+  <!-- Power-ups Status -->
+  <div class="power-ups-display">
+    <div class="power-up-indicator shield" id="shieldIndicator">🛡️ Shield</div>
+    <div class="power-up-indicator magnet" id="magnetIndicator">🧲 Magnet</div>
+    <div class="power-up-indicator slowMotion" id="slowMotionIndicator">⏱️ Slow Motion</div>
   </div>
 
   <div class="game-wrapper">

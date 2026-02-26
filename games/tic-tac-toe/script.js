@@ -6,6 +6,31 @@ let difficulty = "easy"; // default level
 let isPlayerTurn = true;
 let scoreX = 0;
 let scoreO = 0;
+let powerUps = {
+  X: { wildCard: 0, blockCell: 0, doubleTurn: 0 },
+  O: { wildCard: 0, blockCell: 0, doubleTurn: 0 }
+};
+let selectedPowerUp = null;
+let blockedCells = new Set();
+let theme = 'neon';
+
+document.addEventListener('DOMContentLoaded', () => {
+  player = prompt("Enter your name:") || "Player";
+  document.getElementById('playerName').textContent = player;
+  restartGame();
+  document.addEventListener('keydown', changeDirection);
+  document.addEventListener('keydown', handlePause);
+  
+  // Initialize power-up display
+  updatePowerUpDisplay();
+  
+  // Add keyboard scrolling prevention
+  document.addEventListener('keydown', (e) => {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
+      e.preventDefault();
+    }
+  });
+});
 
 const boardDiv = document.getElementById("board");
 
@@ -29,6 +54,8 @@ function restartGame() {
   currentPlayer = "X";
   gameOver = false;
   isPlayerTurn = true;
+  blockedCells.clear();
+  selectedPowerUp = null;
   document.getElementById("status").textContent = "";
   boardDiv.innerHTML = "";
 
@@ -41,6 +68,7 @@ function restartGame() {
   }
 
   document.getElementById("popup").classList.add("hidden");
+  updatePowerUpDisplay();
 }
 
 function handleClick(e) {
@@ -48,6 +76,12 @@ function handleClick(e) {
 
   // Fix: Only skip if cell is not null (i.e., already filled)
   if (board[index] !== null || gameOver || !isPlayerTurn) return;
+  
+  // Check if cell is blocked
+  if (blockedCells.has(index)) {
+    showMessage('This cell is blocked!');
+    return;
+  }
 
   if (mode === "pvp") {
     makeMove(index, currentPlayer);
@@ -73,8 +107,25 @@ function handleClick(e) {
 
 
 function makeMove(index, player) {
-  board[index] = player;
-  document.querySelector(`.cell[data-index="${index}"]`).textContent = player;
+  let actualPlayer = player;
+  let displaySymbol = player;
+  
+  // Check for wild card power-up
+  if (selectedPowerUp === 'wildCard' && powerUps[player].wildCard > 0) {
+    displaySymbol = 'W';
+    powerUps[player].wildCard--;
+    selectedPowerUp = null;
+    updatePowerUpDisplay();
+    showMessage(`Wild Card activated! ${player} gets 2 points!`);
+  }
+  
+  board[index] = actualPlayer;
+  const cell = document.querySelector(`.cell[data-index="${index}"]`);
+  cell.textContent = displaySymbol;
+  
+  // Add animation
+  cell.classList.add('cell-pop');
+  setTimeout(() => cell.classList.remove('cell-pop'), 300);
 
   if (checkWinner(player)) {
     showPopup(player);
@@ -86,6 +137,11 @@ function makeMove(index, player) {
 }
 
 function computerMove() {
+  // First, try to use power-ups strategically
+  if (difficulty === "hard" && Math.random() < 0.3) {
+    useComputerPowerUp();
+  }
+  
   if (difficulty === "easy") {
     randomMove();
   } else if (difficulty === "medium") {
@@ -114,13 +170,18 @@ function showPopup(winner) {
 
   // ⭐ SCORE UPDATE PART
   if (winner === "X") {
-    scoreX++;
+    scoreX += 2; // Bonus points
     document.getElementById("scoreX").textContent = scoreX;
   }
 
   if (winner === "O") {
-    scoreO++;
+    scoreO += 2; // Bonus points
     document.getElementById("scoreO").textContent = scoreO;
+  }
+  
+  // Award power-ups for winning
+  if (winner !== "Draw") {
+    awardPowerUps(winner);
   }
 
   popup.classList.add("show");
@@ -243,3 +304,113 @@ function minimax(newBoard, depth, isMaximizing) {
     return bestScore;
   }
 }
+
+// Power-up functions
+function awardPowerUps(player) {
+  const randomPowerUp = ['wildCard', 'blockCell', 'doubleTurn'][Math.floor(Math.random() * 3)];
+  powerUps[player][randomPowerUp]++;
+  showMessage(`${player} earned a ${randomPowerUp} power-up!`);
+  updatePowerUpDisplay();
+}
+
+function selectPowerUp(type) {
+  if (powerUps[currentPlayer][type] > 0) {
+    selectedPowerUp = selectedPowerUp === type ? null : type;
+    updatePowerUpDisplay();
+  }
+}
+
+function usePowerUp(type, index) {
+  if (powerUps[currentPlayer][type] <= 0) return;
+  
+  switch(type) {
+    case 'blockCell':
+      blockedCells.add(index);
+      powerUps[currentPlayer].blockCell--;
+      showMessage('Cell blocked for 1 turn!');
+      setTimeout(() => blockedCells.delete(index), 2000);
+      break;
+    case 'doubleTurn':
+      // Skip player switch for next turn
+      powerUps[currentPlayer].doubleTurn--;
+      showMessage('Double turn activated!');
+      break;
+  }
+  updatePowerUpDisplay();
+}
+
+function useComputerPowerUp() {
+  const availablePowerUps = Object.keys(powerUps.O).filter(key => powerUps.O[key] > 0);
+  if (availablePowerUps.length === 0) return;
+  
+  const powerUp = availablePowerUps[Math.floor(Math.random() * availablePowerUps.length)];
+  
+  if (powerUp === 'blockCell') {
+    const emptyCells = board.map((v, i) => v === null ? i : null).filter(i => i !== null);
+    if (emptyCells.length > 0) {
+      const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+      blockedCells.add(randomIndex);
+      powerUps.O.blockCell--;
+      setTimeout(() => blockedCells.delete(randomIndex), 2000);
+    }
+  }
+}
+
+function updatePowerUpDisplay() {
+  const playerPowerUps = powerUps[currentPlayer];
+  document.querySelectorAll('.power-up-btn').forEach(btn => {
+    const type = btn.dataset.powerup;
+    const count = playerPowerUps[type] || 0;
+    btn.textContent = `${getPowerUpSymbol(type)} (${count})`;
+    btn.classList.toggle('active', selectedPowerUp === type);
+    btn.disabled = count === 0;
+  });
+}
+
+function getPowerUpSymbol(type) {
+  const symbols = {
+    wildCard: '🃏',
+    blockCell: '🚫',
+    doubleTurn: '🔄'
+  };
+  return symbols[type] || type;
+}
+
+function showMessage(text) {
+  const messageEl = document.createElement('div');
+  messageEl.className = 'game-message';
+  messageEl.textContent = text;
+  messageEl.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    z-index: 1000;
+    animation: fadeInOut 2s ease;
+  `;
+  document.body.appendChild(messageEl);
+  setTimeout(() => messageEl.remove(), 2000);
+}
+
+function changeTheme(newTheme) {
+  theme = newTheme;
+  document.body.className = `game-page theme-${theme}`;
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.theme === theme);
+  });
+}
+
+// Add cell visual updates for blocked cells
+function updateBlockedCells() {
+  document.querySelectorAll('.cell').forEach((cell, index) => {
+    cell.classList.toggle('blocked-cell', blockedCells.has(index));
+  });
+}
+
+// Update blocked cells display periodically
+setInterval(updateBlockedCells, 100);

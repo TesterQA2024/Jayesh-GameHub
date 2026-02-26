@@ -5,6 +5,137 @@
   <title>Tic Tac Toe | Jayesh Game Hub</title>
   <link rel="stylesheet" href="../../style.css"> <!-- Main site css -->
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Additional styles for power-ups and themes */
+    html, body {
+      overflow: hidden;
+      height: 100%;
+      position: fixed;
+      width: 100%;
+    }
+    
+    .power-ups-container {
+      display: flex;
+      gap: 10px;
+      margin: 15px 0;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .power-up-btn {
+      padding: 8px 15px;
+      border: 2px solid #ff3b7d;
+      background: rgba(255,59,125,0.1);
+      color: #ff3b7d;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .power-up-btn:hover:not(:disabled) {
+      background: rgba(255,59,125,0.3);
+      transform: translateY(-2px);
+    }
+    
+    .power-up-btn.active {
+      background: #ff3b7d;
+      color: white;
+      box-shadow: 0 0 15px rgba(255,59,125,0.5);
+    }
+    
+    .power-up-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .theme-switcher {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
+      justify-content: center;
+    }
+    
+    .theme-btn {
+      padding: 5px 15px;
+      border: 1px solid #667eea;
+      background: rgba(102,126,234,0.1);
+      color: #667eea;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+    
+    .theme-btn.active {
+      background: #667eea;
+      color: white;
+    }
+    
+    .cell-pop {
+      animation: cellPop 0.3s ease;
+    }
+    
+    @keyframes cellPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+      20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    }
+    
+    /* Theme variations */
+    .theme-neon .cell {
+      background: rgba(0,0,0,0.8);
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
+    }
+    
+    .theme-neon .cell:hover {
+      background: rgba(0,255,255,0.1);
+      box-shadow: 0 0 20px rgba(0,255,255,0.5);
+    }
+    
+    .theme-wood .cell {
+      background: linear-gradient(135deg, #8B4513, #A0522D);
+      border: 2px solid #654321;
+      color: #FFD700;
+      font-weight: bold;
+    }
+    
+    .theme-wood .cell:hover {
+      background: linear-gradient(135deg, #A0522D, #8B4513);
+    }
+    
+    .theme-space .cell {
+      background: rgba(25,25,112,0.8);
+      border: 2px solid #4B0082;
+      color: #FF69B4;
+      text-shadow: 0 0 5px #FF69B4;
+    }
+    
+    .theme-space .cell:hover {
+      background: rgba(75,0,130,0.3);
+      box-shadow: 0 0 15px rgba(255,105,180,0.5);
+    }
+    
+    .blocked-cell {
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255,0,0,0.1),
+        rgba(255,0,0,0.1) 10px,
+        rgba(255,0,0,0.2) 10px,
+        rgba(255,0,0,0.2) 20px
+      ) !important;
+      cursor: not-allowed !important;
+    }
+  </style>
 </head>
 
 <body class="game-page">
@@ -36,6 +167,20 @@
       <button onclick="setLevel('easy')">Easy</button>
       <button onclick="setLevel('medium')">Medium</button>
       <button onclick="setLevel('hard')">Hard</button>
+    </div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+      <button class="theme-btn active" data-theme="neon" onclick="changeTheme('neon')">Neon</button>
+      <button class="theme-btn" data-theme="wood" onclick="changeTheme('wood')">Wood</button>
+      <button class="theme-btn" data-theme="space" onclick="changeTheme('space')">Space</button>
+    </div>
+
+    <!-- Power-ups Container -->
+    <div class="power-ups-container">
+      <button class="power-up-btn" data-powerup="wildCard" onclick="selectPowerUp('wildCard')">🃏 (0)</button>
+      <button class="power-up-btn" data-powerup="blockCell" onclick="selectPowerUp('blockCell')">🚫 (0)</button>
+      <button class="power-up-btn" data-powerup="doubleTurn" onclick="selectPowerUp('doubleTurn')">🔄 (0)</button>
     </div>
 
     <div class="board" id="board"></div>

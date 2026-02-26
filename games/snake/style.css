@@ -5,6 +5,8 @@ body.game-page {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   color: white;
+  overflow: hidden; /* Prevent body scroll */
+  height: 100vh;
 }
 
 /* NAVBAR */
@@ -15,6 +17,37 @@ body.game-page {
   padding: 20px 60px;
   background: rgba(0,0,0,0.4);
   backdrop-filter: blur(10px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+  
+  .logo {
+    font-size: 16px;
+  }
+  
+  .back-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 15px;
+  }
+  
+  .logo {
+    font-size: 14px;
+  }
+  
+  .back-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 }
 
 .logo {
@@ -47,6 +80,25 @@ body.game-page {
   box-shadow: 0 0 40px rgba(0,0,0,0.4);
 }
 
+/* Mobile Responsive for Game Container */
+@media (max-width: 768px) {
+  .game-container {
+    margin: 40px 20px;
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-container {
+    margin: 30px 15px;
+    padding: 20px 15px;
+  }
+  
+  .game-title {
+    font-size: 20px;
+  }
+}
+
 .fade-in {
   animation: fadeIn 0.6s ease-in;
 }
@@ -69,6 +121,34 @@ body.game-page {
   border-radius: 10px;
   margin-bottom: 20px;
   font-weight: 600;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.level-display {
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(255,215,0,0.5);
+}
+
+/* Power-up Status */
+.power-up-status {
+  background: linear-gradient(45deg, #FF00FF, #00FFFF);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-align: center;
+  animation: powerUpPulse 1s infinite alternate;
+}
+
+@keyframes powerUpPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
 }
 
 /* GAME WRAPPER */
@@ -86,6 +166,21 @@ body.game-page {
   border-radius: 8px;
   display: block;
   margin: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile Canvas */
+@media (max-width: 480px) {
+  #gameCanvas {
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+  }
+}
+
+canvas {
+  touch-action: none;
 }
 
 /* OVERLAY */
@@ -129,11 +224,25 @@ body.game-page {
 .btn:hover {
   transform: scale(1.05);
 }
+
 /* Difficulty */
 .difficulty-switch {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  gap: 5px;
+}
+
+/* Mobile Difficulty Switch */
+@media (max-width: 480px) {
+  .difficulty-switch {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .difficulty-switch button {
+    margin: 0;
+  }
 }
 
 .difficulty-switch button {

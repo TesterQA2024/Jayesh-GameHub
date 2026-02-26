@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Snake Game - Jayesh Game Hub</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Snake Game - Jayesh Game Hub</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Additional CSS to prevent scrolling */
+    html, body {
+      overflow: hidden;
+      height: 100%;
+      position: fixed;
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body class="game-page">
@@ -23,6 +32,7 @@
   <div class="top-bar">
     <div>Player: <span id="playerName">–</span></div>
     <div id="scoreBoard">Score: 0</div>
+    <div class="level-display">Level: <span id="levelDisplay">1</span></div>
   </div>
 	
 	<div class="difficulty-switch">
@@ -34,6 +44,11 @@
 	<!-- High Score -->
 	<div class="high-score">
 	  High Score: <span id="highScore">0</span>
+	</div>
+	
+	<!-- Power-up Status -->
+	<div class="power-up-status" id="powerUpStatus" style="display: none;">
+	  <span id="powerUpText">No Power-Up Active</span>
 	</div>
 
 	<!-- Eat Sound -->
