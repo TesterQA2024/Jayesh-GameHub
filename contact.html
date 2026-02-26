@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Jayesh Game Hub - Get in touch with our team">
+  <title>Contact Us - Jayesh Game Hub</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Contact Page Specific Styles */
+    .contact-hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 100px 20px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+      background-size: cover;
+    }
+    
+    .contact-hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    
+    .contact-hero p {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin: 0 auto 30px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .contact-container {
+      max-width: 1200px;
+      margin: -50px auto 80px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    
+    .contact-form-wrapper {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .contact-info-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .info-card {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+    
+    .info-card h3 {
+      color: #667eea;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .info-card p {
+      color: #4a5568;
+      line-height: 1.6;
+      margin: 8px 0;
+    }
+    
+    .info-card a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    
+    .info-card a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+    
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    
+    .form-group label {
+      color: #4a5568;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background: white;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .submit-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 18px 40px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(102,126,234,0.4);
+    }
+    
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+    
+    .map-section {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      margin-bottom: 60px;
+    }
+    
+    .map-placeholder {
+      height: 400px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .quick-contact {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    
+    .quick-contact h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .quick-contact-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    
+    .quick-btn {
+      background: white;
+      color: #f5576c;
+      padding: 15px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .quick-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .contact-hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .contact-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .contact-form-wrapper {
+        padding: 30px 20px;
+      }
+      
+      .quick-contact-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .quick-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .contact-hero {
+        padding: 80px 15px 50px;
+      }
+      
+      .contact-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .contact-form-wrapper {
+        padding: 25px 15px;
+      }
+      
+      .info-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">🎮 Jayesh Game Hub</div>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#games">Games</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="contact-hero">
+  <h1>Get in Touch</h1>
+  <p>Have a question or feedback? We'd love to hear from you!</p>
+</section>
+
+<div class="contact-container">
+  <div class="contact-grid">
+    <div class="contact-form-wrapper">
+      <h2 style="color: #4a5568; margin-bottom: 30px; font-size: 1.8rem;">Send us a Message</h2>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your Name *</label>
+            <input type="text" id="name" name="name" required placeholder="John Doe">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required placeholder="john@example.com">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject *</label>
+          <select id="subject" name="subject" required>
+            <option value="">Select a topic</option>
+            <option value="general">General Inquiry</option>
+            <option value="feedback">Game Feedback</option>
+            <option value="bug">Bug Report</option>
+            <option value="feature">Feature Request</option>
+            <option value="partnership">Partnership</option>
+            <option value="support">Technical Support</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group full-width">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" rows="6" required placeholder="Tell us what's on your mind..."></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Send Message 🚀</button>
+      </form>
+    </div>
+    
+    <div class="contact-info-wrapper">
+      <div class="info-card">
+        <h3>📧 Email Us</h3>
+        <p><strong>General:</strong> <a href="mailto:hello@jayeshgamehub.com">hello@jayeshgamehub.com</a></p>
+        <p><strong>Support:</strong> <a href="mailto:support@jayeshgamehub.com">support@jayeshgamehub.com</a></p>
+        <p><strong>Bugs:</strong> <a href="mailto:bugs@jayeshgamehub.com">bugs@jayeshgamehub.com</a></p>
+      </div>
+      
+      <div class="info-card">
+        <h3>📱 Social Media</h3>
+        <p><strong>Instagram:</strong> <a href="https://instagram.com/jayeshgamehub" target="_blank">@jayeshgamehub</a></p>
+        <p><strong>Twitter:</strong> <a href="https://twitter.com/jayeshgamehub" target="_blank">@jayeshgamehub</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/jayeshgamehub" target="_blank">Jayesh Game Hub</a></p>
+      </div>
+      
+      <div class="info-card">
+        <h3>🏢 Office</h3>
+        <p><strong>Address:</strong></p>
+        <p>Jayesh Game Hub</p>
+        <p>Tech Park, Sector 62</p>
+        <p>Noida, Uttar Pradesh 201301</p>
+        <p>India</p>
+        <p><strong>Hours:</strong> Mon-Fri, 9AM-6PM IST</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="map-section">
+    <div class="map-placeholder">
+      📍 Interactive Map Coming Soon
+    </div>
+  </div>
+  
+  <div class="quick-contact">
+    <h2>Need Quick Help?</h2>
+    <p>Get instant support through these channels</p>
+    <div class="quick-contact-buttons">
+      <a href="tel:+919876543210" class="quick-btn">
+        📞 Call Us
+      </a>
+      <a href="https://wa.me/919876543210" class="quick-btn">
+        💬 WhatsApp
+      </a>
+      <a href="#" class="quick-btn" onclick="startLiveChat()">
+        💭 Live Chat
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <h3>🎮 Jayesh Game Hub</h3>
+      <p>Play modern browser games instantly.</p>
+    </div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms & Conditions</a>
+      <a href="support.html">Support</a>
+    </div>
+    <div class="footer-social">
+      <a href="https://instagram.com/jayeshgamehub" target="_blank">Instagram</a>
+      <a href="https://linkedin.com/in/jayeshgamehub" target="_blank">LinkedIn</a>
+      <a href="https://github.com/jayeshgamehub" target="_blank">GitHub</a>
+    </div>
+  </div>
+  <p class="copyright"> 2026 Jayesh Game Hub. All Rights Reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+function handleSubmit(event) {
+  event.preventDefault();
+  
+  // Get form data
+  const formData = new FormData(event.target);
+  const data = Object.fromEntries(formData);
+  
+  // Show success message
+  const form = event.target;
+  const originalContent = form.innerHTML;
+  
+  form.innerHTML = `
+    <div style="text-align: center; padding: 40px;">
+      <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
+      <h3 style="color: #48bb78; margin-bottom: 15px;">Message Sent Successfully!</h3>
+      <p style="color: #4a5568; margin-bottom: 20px;">Thank you for contacting us. We'll get back to you within 24 hours.</p>
+      <button type="button" onclick="resetForm(this)" style="background: #667eea; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-weight: 600;">Send Another Message</button>
+    </div>
+  `;
+  
+  // Log form data (in real implementation, this would be sent to a server)
+  console.log('Form submitted:', data);
+}
+
+function resetForm(button) {
+  const form = button.closest('.contact-form');
+  form.innerHTML = `
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Your Name *</label>
+        <input type="text" id="name" name="name" required placeholder="John Doe">
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="john@example.com">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="subject">Subject *</label>
+      <select id="subject" name="subject" required>
+        <option value="">Select a topic</option>
+        <option value="general">General Inquiry</option>
+        <option value="feedback">Game Feedback</option>
+        <option value="bug">Bug Report</option>
+        <option value="feature">Feature Request</option>
+        <option value="partnership">Partnership</option>
+        <option value="support">Technical Support</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    
+    <div class="form-group full-width">
+      <label for="message">Message *</label>
+      <textarea id="message" name="message" rows="6" required placeholder="Tell us what's on your mind..."></textarea>
+    </div>
+    
+    <button type="submit" class="submit-btn">Send Message 🚀</button>
+  `;
+}
+
+function startLiveChat() {
+  alert('Live chat feature coming soon! Please email us at support@jayeshgamehub.com for immediate assistance.');
+}
+</script>
+</body>
+</html>

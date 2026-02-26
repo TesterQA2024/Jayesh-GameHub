@@ -31,6 +31,7 @@ body::before {
   font-weight: 700;
   background: linear-gradient(90deg, #fff, #ff4d88);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -146,6 +147,10 @@ body::before {
   color: #ff3b7d;
 }
 
+.menu-toggle {
+  display: none;
+}
+
 /* ===== FOOTER ===== */
 
 .footer {
@@ -186,4 +191,177 @@ body::before {
   text-align: center;
   margin-top: 40px;
   opacity: 0.5;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 30px;
+    flex-wrap: wrap;
+  }
+  
+  .logo {
+    font-size: 18px;
+  }
+  
+  .nav-links {
+    gap: 20px;
+  }
+  
+  .hero h1 {
+    font-size: 42px;
+  }
+  
+  .hero p {
+    font-size: 16px;
+  }
+  
+  .games-grid {
+    gap: 40px;
+    padding: 40px 20px 80px;
+  }
+  
+  .card {
+    width: 280px;
+    padding: 20px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 20px;
+    position: relative;
+  }
+  
+  .logo {
+    font-size: 16px;
+  }
+  
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .hero {
+    padding: 40px 15px 30px;
+  }
+  
+  .hero h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+  
+  .hero p {
+    font-size: 14px;
+  }
+  
+  .divider {
+    width: 80px;
+    height: 3px;
+    margin: 20px auto;
+  }
+  
+  .games-grid {
+    gap: 25px;
+    padding: 30px 15px 60px;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 320px;
+    padding: 20px 15px;
+  }
+  
+  .card img {
+    height: 160px;
+    padding: 10px;
+  }
+  
+  .card h3 {
+    font-size: 18px;
+    margin-top: 15px;
+  }
+  
+  .card a {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .footer {
+    padding: 40px 20px 15px;
+    margin-top: 40px;
+  }
+  
+  .footer-content {
+    gap: 25px;
+  }
+  
+  .footer h3 {
+    font-size: 18px;
+  }
+  
+  .footer a {
+    font-size: 14px;
+  }
+  
+  .copyright {
+    font-size: 12px;
+    margin-top: 30px;
+  }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 360px) {
+  .hero h1 {
+    font-size: 28px;
+  }
+  
+  .card {
+    padding: 15px 10px;
+  }
+  
+  .card img {
+    height: 140px;
+  }
+  
+  .card h3 {
+    font-size: 16px;
+  }
+  
+  .card a {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
 }
